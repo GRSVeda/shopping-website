@@ -1,14 +1,23 @@
 import { Link } from "react-router-dom"
 
+import { useCart } from "../context/CartContext"
+
 function Navbar() {
+  const { getCartCount } = useCart()
+
+  const cartCount = getCartCount()
+
   return (
     <nav className="navbar">
 
       <div className="logo">
+
         <Link to="/">
           <h2>ShopEasy</h2>
         </Link>
+
       </div>
+
 
       <div className="nav-links">
 
@@ -22,6 +31,13 @@ function Navbar() {
 
         <Link to="/cart">
           Cart
+
+          {cartCount > 0 && (
+            <span className="cart-count">
+              {cartCount}
+            </span>
+          )}
+
         </Link>
 
         <Link to="/login">

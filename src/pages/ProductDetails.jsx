@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom"
 import { useState } from "react"
+
 import products from "../data/products"
+import { useCart } from "../context/CartContext"
 
 function ProductDetails() {
   const { id } = useParams()
@@ -10,6 +12,8 @@ function ProductDetails() {
   )
 
   const [quantity, setQuantity] = useState(1)
+
+  const { addToCart } = useCart()
 
   if (!product) {
     return (
@@ -31,6 +35,12 @@ function ProductDetails() {
     if (quantity > 1) {
       setQuantity(quantity - 1)
     }
+  }
+
+  const handleAddToCart = () => {
+    addToCart(product, quantity)
+
+    alert("Product added to cart!")
   }
 
   return (
@@ -100,7 +110,10 @@ function ProductDetails() {
 
           {/* Add To Cart */}
 
-          <button className="add-to-cart-button">
+          <button
+            className="add-to-cart-button"
+            onClick={handleAddToCart}
+          >
             Add to Cart
           </button>
 
