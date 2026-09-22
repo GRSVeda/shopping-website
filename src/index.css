@@ -350,3 +350,92 @@ body {
   color: #666;
   font-size: 18px;
 }
+/* =========================
+   SEARCH
+========================= */
+
+.search-container {
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 25px;
+}
+
+.search-container input {
+  width: 500px;
+
+  padding: 14px 18px;
+
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  font-size: 16px;
+
+  outline: none;
+}
+
+.search-container input:focus {
+  border-color: #007bff;
+}
+
+
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+.category-filters {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  margin-bottom: 40px;
+
+  flex-wrap: wrap;
+}
+
+.category-filters button {
+  padding: 10px 20px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 20px;
+
+  background-color: white;
+
+  cursor: pointer;
+
+  font-size: 15px;
+}
+
+.category-filters button:hover {
+  border-color: #007bff;
+}
+
+.category-filters .active-category {
+  background-color: #007bff;
+
+  color: white;
+
+  border-color: #007bff;
+}
+
+
+/* =========================
+   NO PRODUCTS
+========================= */
+
+.no-products {
+  text-align: center;
+
+  padding: 60px 20px;
+}
+
+.no-products h2 {
+  margin-bottom: 10px;
+}
+
+.no-products p {
+  color: #666;
+}
