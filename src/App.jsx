@@ -11,7 +11,7 @@ import Products from "./pages/Products"
 import ProductDetails from "./pages/ProductDetails"
 import Cart from "./pages/Cart"
 import Login from "./pages/Login"
-
+import Wishlist from "./pages/Wishlist"
 function App() {
   return (
     <BrowserRouter>
@@ -44,7 +44,10 @@ function App() {
           path="/login"
           element={<Login />}
         />
-
+        <Route
+  path="/wishlist"
+  element={<Wishlist />}
+/>
       </Routes>
 
     </BrowserRouter>

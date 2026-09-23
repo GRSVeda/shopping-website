@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom"
 
 import { useCart } from "../context/CartContext"
-
+import { useWishlist } from "../context/WishlistContext"
 function Navbar() {
   const { getCartCount } = useCart()
 
   const cartCount = getCartCount()
-
+  const { getWishlistCount } = useWishlist()
+const wishlistCount = getWishlistCount()
   return (
     <nav className="navbar">
 
@@ -43,7 +44,14 @@ function Navbar() {
         <Link to="/login">
           Login
         </Link>
-
+          <Link to="/wishlist">
+  Wishlist
+  {wishlistCount > 0 && (
+    <span className="cart-count">
+      {wishlistCount}
+    </span>
+  )}
+</Link>
       </div>
 
     </nav>

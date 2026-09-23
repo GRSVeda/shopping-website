@@ -1,27 +1,60 @@
 import { Link } from "react-router-dom"
 import { useCart } from "../context/CartContext"
+import { useWishlist } from "../context/WishlistContext"
 
 function ProductCard({ product }) {
   const { addToCart } = useCart()
+
+  const {
+    addToWishlist,
+    removeFromWishlist,
+    isInWishlist
+  } = useWishlist()
 
   const handleAddToCart = () => {
     addToCart(product, 1)
     alert("Product added to cart!")
   }
 
+  const handleWishlist = () => {
+    if (isInWishlist(product.id)) {
+      removeFromWishlist(product.id)
+    } else {
+      addToWishlist(product)
+    }
+  }
+
+  const wishlistActive = isInWishlist(product.id)
+
   return (
     <div className="product-card">
 
       {/* Product Image */}
-      <Link
-        to={`/products/${product.id}`}
-        className="product-image-link"
-      >
-        <img
-          src={product.image}
-          alt={product.name}
-        />
-      </Link>
+      <div className="product-image-container">
+
+        <Link
+          to={`/products/${product.id}`}
+          className="product-image-link"
+        >
+          <img
+            src={product.image}
+            alt={product.name}
+          />
+        </Link>
+
+        {/* Wishlist Button */}
+        <button
+          className={
+            wishlistActive
+              ? "wishlist-button active"
+              : "wishlist-button"
+          }
+          onClick={handleWishlist}
+        >
+          {wishlistActive ? "♥" : "♡"}
+        </button>
+
+      </div>
 
       <div className="product-info">
 
@@ -40,8 +73,13 @@ function ProductCard({ product }) {
 
         {/* Rating */}
         <div className="product-rating">
-          <span>⭐ {product.rating}</span>
-          <span>({product.reviews} reviews)</span>
+          <span>
+            ⭐ {product.rating}
+          </span>
+
+          <span>
+            ({product.reviews} reviews)
+          </span>
         </div>
 
         {/* Price */}
@@ -86,7 +124,6 @@ function ProductCard({ product }) {
         </button>
 
       </div>
-
     </div>
   )
 }

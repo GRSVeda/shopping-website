@@ -1,21 +1,29 @@
 const products = [
   {
-    id: 1,
-    name: "Wireless Headphones",
-    description:
-      "High-quality wireless headphones with clear sound, comfortable ear cushions, and long battery life.",
-    category: "Electronics",
-    rating: 4.5,
-    reviews: 128,
-    originalPrice: 2499,
-    salePrice: 1999,
-    discount: 20,
-    stock: 25,
-    popularity: 95,
-    image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
-    createdAt: "2026-09-15"
-  },
+  id: 1,
+  name: "Wireless Headphones",
+  description:
+    "High-quality wireless headphones with clear sound, comfortable ear cushions, and long battery life.",
+  category: "Electronics",
+  rating: 4.5,
+  reviews: 128,
+  originalPrice: 2499,
+  salePrice: 1999,
+  discount: 20,
+  stock: 25,
+  popularity: 95,
+
+  image:
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700",
+
+  images: [
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=700",
+    "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=700",
+    "https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=700"
+  ],
+
+  createdAt: "2026-09-15"
+},
 
   {
     id: 2,

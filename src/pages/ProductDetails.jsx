@@ -13,6 +13,9 @@ function ProductDetails() {
   )
 
   const [quantity, setQuantity] = useState(1)
+  const [selectedImage, setSelectedImage] = useState(
+    product?.image
+  )
 
   const { addToCart } = useCart()
 
@@ -26,6 +29,8 @@ function ProductDetails() {
       </main>
     )
   }
+
+  const productImages = product.images || [product.image]
 
   const increaseQuantity = () => {
     if (quantity < product.stock) {
@@ -54,23 +59,50 @@ function ProductDetails() {
 
       <div className="product-details">
 
-        {/* Product Image */}
-        <div className="product-details-image">
-          <img
-            src={product.image}
-            alt={product.name}
-          />
+        {/* Image Gallery */}
+        <div className="product-gallery">
+
+          {/* Main Image */}
+          <div className="product-main-image">
+            <img
+              src={selectedImage}
+              alt={product.name}
+            />
+          </div>
+
+          {/* Thumbnails */}
+          <div className="product-thumbnails">
+
+            {productImages.map((image, index) => (
+              <button
+                key={index}
+                className={
+                  selectedImage === image
+                    ? "thumbnail active-thumbnail"
+                    : "thumbnail"
+                }
+                onClick={() =>
+                  setSelectedImage(image)
+                }
+              >
+                <img
+                  src={image}
+                  alt={`${product.name} ${index + 1}`}
+                />
+              </button>
+            ))}
+
+          </div>
+
         </div>
 
         {/* Product Information */}
         <div className="product-details-info">
 
-          {/* Category */}
           <p className="product-details-category">
             {product.category}
           </p>
 
-          {/* Product Name */}
           <h1>{product.name}</h1>
 
           {/* Rating */}
@@ -140,7 +172,9 @@ function ProductDetails() {
 
                 <button
                   onClick={increaseQuantity}
-                  disabled={quantity === product.stock}
+                  disabled={
+                    quantity === product.stock
+                  }
                 >
                   +
                 </button>
