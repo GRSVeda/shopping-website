@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 import products from "../data/products"
@@ -6,6 +6,7 @@ import { useCart } from "../context/CartContext"
 
 function ProductDetails() {
   const { id } = useParams()
+  const navigate = useNavigate()
 
   const product = products.find(
     (item) => item.id === Number(id)
@@ -19,7 +20,6 @@ function ProductDetails() {
     return (
       <main className="no-product-page">
         <h1>Product Not Found</h1>
-
         <p>
           The product you are looking for does not exist.
         </p>
@@ -28,7 +28,9 @@ function ProductDetails() {
   }
 
   const increaseQuantity = () => {
-    setQuantity(quantity + 1)
+    if (quantity < product.stock) {
+      setQuantity(quantity + 1)
+    }
   }
 
   const decreaseQuantity = () => {
@@ -39,8 +41,12 @@ function ProductDetails() {
 
   const handleAddToCart = () => {
     addToCart(product, quantity)
-
     alert("Product added to cart!")
+  }
+
+  const handleBuyNow = () => {
+    addToCart(product, quantity)
+    navigate("/cart")
   }
 
   return (
@@ -49,73 +55,123 @@ function ProductDetails() {
       <div className="product-details">
 
         {/* Product Image */}
-
         <div className="product-details-image">
-
           <img
             src={product.image}
             alt={product.name}
           />
-
         </div>
 
-
         {/* Product Information */}
-
         <div className="product-details-info">
 
+          {/* Category */}
           <p className="product-details-category">
             {product.category}
           </p>
 
-          <h1>
-            {product.name}
-          </h1>
+          {/* Product Name */}
+          <h1>{product.name}</h1>
 
-          <p className="product-details-price">
-            ₹{product.price}
-          </p>
+          {/* Rating */}
+          <div className="product-details-rating">
+            <span>
+              ⭐ {product.rating}
+            </span>
 
-          <p className="product-description">
-            This is a high-quality {product.name.toLowerCase()}
-            designed to provide excellent value and a great
-            shopping experience.
-          </p>
+            <span>
+              ({product.reviews} reviews)
+            </span>
+          </div>
 
+          {/* Price */}
+          <div className="product-details-price-section">
 
-          {/* Quantity */}
+            <span className="product-details-sale-price">
+              ₹{product.salePrice}
+            </span>
 
-          <div className="quantity-section">
+            <span className="product-details-original-price">
+              ₹{product.originalPrice}
+            </span>
 
-            <h3>Quantity</h3>
-
-            <div className="quantity-controls">
-
-              <button onClick={decreaseQuantity}>
-                -
-              </button>
-
-              <span>
-                {quantity}
-              </span>
-
-              <button onClick={increaseQuantity}>
-                +
-              </button>
-
-            </div>
+            <span className="product-details-discount">
+              {product.discount}% OFF
+            </span>
 
           </div>
 
+          {/* Description */}
+          <p className="product-description">
+            {product.description}
+          </p>
 
-          {/* Add To Cart */}
+          {/* Stock */}
+          <div className="product-stock">
 
-          <button
-            className="add-to-cart-button"
-            onClick={handleAddToCart}
-          >
-            Add to Cart
-          </button>
+            {product.stock > 0 ? (
+              <p className="in-stock">
+                ✓ {product.stock} items in stock
+              </p>
+            ) : (
+              <p className="out-of-stock">
+                ✕ Out of stock
+              </p>
+            )}
+
+          </div>
+
+          {/* Quantity */}
+          {product.stock > 0 && (
+            <div className="quantity-section">
+
+              <h3>Quantity</h3>
+
+              <div className="quantity-controls">
+
+                <button
+                  onClick={decreaseQuantity}
+                  disabled={quantity === 1}
+                >
+                  -
+                </button>
+
+                <span>{quantity}</span>
+
+                <button
+                  onClick={increaseQuantity}
+                  disabled={quantity === product.stock}
+                >
+                  +
+                </button>
+
+              </div>
+
+            </div>
+          )}
+
+          {/* Buttons */}
+          <div className="product-action-buttons">
+
+            <button
+              className="add-to-cart-button"
+              onClick={handleAddToCart}
+              disabled={product.stock === 0}
+            >
+              {product.stock > 0
+                ? "Add to Cart"
+                : "Out of Stock"}
+            </button>
+
+            <button
+              className="buy-now-button"
+              onClick={handleBuyNow}
+              disabled={product.stock === 0}
+            >
+              Buy Now
+            </button>
+
+          </div>
 
         </div>
 
