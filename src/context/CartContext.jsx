@@ -58,10 +58,14 @@ function CartProvider({ children }) {
     )
   }
 
+  const clearCart = () => {
+    setCart([])
+  }
+
   const getCartTotal = () => {
     return cart.reduce(
       (total, item) =>
-        total + item.price * item.quantity,
+        total + item.salePrice * item.quantity,
       0
     )
   }
@@ -80,6 +84,7 @@ function CartProvider({ children }) {
         addToCart,
         removeFromCart,
         updateQuantity,
+        clearCart,
         getCartTotal,
         getCartCount
       }}

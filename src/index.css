@@ -942,3 +942,19 @@ body {
 .wishlist-button.active {
   color: red;
 }
+.clear-cart-button {
+  margin-top: 20px;
+  padding: 10px 16px;
+  border: 1px solid #dc3545;
+  background: white;
+  color: #dc3545;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.clear-cart-button:hover {
+  background: #dc3545;
+  color: white;
+}
