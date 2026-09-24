@@ -12,6 +12,7 @@ import ProductDetails from "./pages/ProductDetails"
 import Cart from "./pages/Cart"
 import Login from "./pages/Login"
 import Wishlist from "./pages/Wishlist"
+import Checkout from "./pages/Checkout"
 function App() {
   return (
     <BrowserRouter>
@@ -47,6 +48,10 @@ function App() {
         <Route
   path="/wishlist"
   element={<Wishlist />}
+/>
+    <Route
+  path="/checkout"
+  element={<Checkout />}
 />
       </Routes>
 
