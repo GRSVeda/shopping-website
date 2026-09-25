@@ -2,9 +2,14 @@ import { Link } from "react-router-dom"
 
 import { useCart } from "../context/CartContext"
 import { useWishlist } from "../context/WishlistContext"
+import { useAuth } from "../context/AuthContext"
 function Navbar() {
   const { getCartCount } = useCart()
-
+  const {
+  user,
+  logout,
+  isLoggedIn
+} = useAuth()
   const cartCount = getCartCount()
   const { getWishlistCount } = useWishlist()
 const wishlistCount = getWishlistCount()
@@ -44,6 +49,11 @@ const wishlistCount = getWishlistCount()
         <Link to="/login">
           Login
         </Link>
+      
+
+<Link to="/register">
+  Register
+</Link>
           <Link to="/wishlist">
   Wishlist
   {wishlistCount > 0 && (
@@ -52,6 +62,30 @@ const wishlistCount = getWishlistCount()
     </span>
   )}
 </Link>
+  {isLoggedIn ? (
+  <>
+    <Link to="/account">
+      Account
+    </Link>
+
+    <button
+      onClick={logout}
+      className="logout-button"
+    >
+      Logout
+    </button>
+  </>
+) : (
+  <>
+    <Link to="/login">
+      Login
+    </Link>
+
+    <Link to="/register">
+      Register
+    </Link>
+  </>
+)}
       </div>
 
     </nav>

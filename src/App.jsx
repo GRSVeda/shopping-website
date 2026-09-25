@@ -13,6 +13,8 @@ import Cart from "./pages/Cart"
 import Login from "./pages/Login"
 import Wishlist from "./pages/Wishlist"
 import Checkout from "./pages/Checkout"
+import OrderConfirmation from "./pages/OrderConfirmation"
+import Register from "./pages/Register"
 function App() {
   return (
     <BrowserRouter>
@@ -52,6 +54,14 @@ function App() {
     <Route
   path="/checkout"
   element={<Checkout />}
+/>
+    <Route
+  path="/order-confirmation"
+  element={<OrderConfirmation />}
+/>
+    <Route
+  path="/register"
+  element={<Register />}
 />
       </Routes>
 
