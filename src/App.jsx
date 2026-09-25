@@ -15,6 +15,11 @@ import Wishlist from "./pages/Wishlist"
 import Checkout from "./pages/Checkout"
 import OrderConfirmation from "./pages/OrderConfirmation"
 import Register from "./pages/Register"
+import MyAccount from "./pages/MyAccount"
+import Orders from "./pages/Orders"
+import Categories from "./pages/Categories"
+import About from "./pages/About"
+import Contact from "./pages/Contact"
 function App() {
   return (
     <BrowserRouter>
@@ -47,6 +52,7 @@ function App() {
           path="/login"
           element={<Login />}
         />
+
         <Route
   path="/wishlist"
   element={<Wishlist />}
@@ -63,8 +69,29 @@ function App() {
   path="/register"
   element={<Register />}
 />
-      </Routes>
+    <Route
+  path="/account"
+  element={<MyAccount />}
+/>
+<Route
+  path="/orders"
+  element={<Orders />}
+/>
+<Route
+  path="/categories"
+  element={<Categories />}
+/>
+<Route
+  path="/about"
+  element={<About />}
+/>
 
+<Route
+  path="/contact"
+  element={<Contact />}
+/>
+      </Routes>
+    
     </BrowserRouter>
   )
 }

@@ -88,16 +88,36 @@ function Checkout() {
       total: total,
       paymentMethod: paymentMethod
     }
+const existingOrders =
+  JSON.parse(localStorage.getItem("orders")) || []
 
-    localStorage.setItem(
-      "latestOrder",
-      JSON.stringify(order)
-    )
+const newOrder = {
+  ...order,
+  orderId: "ORD" + Date.now().toString().slice(-6),
+  orderDate: new Date().toISOString(),
+  status: "Order Placed",
+  paymentStatus:
+    paymentMethod === "COD"
+      ? "Pending"
+      : "Paid"
+}
 
-    clearCart()
+existingOrders.push(newOrder)
 
-    navigate("/order-confirmation")
-  }
+localStorage.setItem(
+  "orders",
+  JSON.stringify(existingOrders)
+)
+
+localStorage.setItem(
+  "latestOrder",
+  JSON.stringify(newOrder)
+)
+
+clearCart()
+
+navigate("/order-confirmation")
+    }
 
   return (
     <main className="checkout-page">

@@ -1,10 +1,11 @@
 import { useState } from "react"
 import ProductCard from "../components/ProductCard"
 import products from "../data/products"
-
+import { useSearchParams } from "react-router-dom"
 function Products() {
   const [search, setSearch] = useState("")
-  const [category, setCategory] = useState("All")
+  const [category, setCategory] =
+  useState(categoryFromUrl)
   const [priceRange, setPriceRange] = useState("All")
   const [rating, setRating] = useState("All")
   const [availability, setAvailability] = useState("All")
@@ -322,6 +323,10 @@ function Products() {
 
     </main>
   )
+  const [searchParams] = useSearchParams()
+
+const categoryFromUrl =
+  searchParams.get("category") || "All"
 }
 
 export default Products

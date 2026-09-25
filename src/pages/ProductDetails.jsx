@@ -3,6 +3,7 @@ import { useState } from "react"
 
 import products from "../data/products"
 import { useCart } from "../context/CartContext"
+import { useWishlist } from "../context/WishlistContext"
 
 function ProductDetails() {
   const { id } = useParams()
@@ -13,16 +14,24 @@ function ProductDetails() {
   )
 
   const [quantity, setQuantity] = useState(1)
+
   const [selectedImage, setSelectedImage] = useState(
     product?.image
   )
 
   const { addToCart } = useCart()
 
+  const {
+    addToWishlist,
+    removeFromWishlist,
+    isInWishlist
+  } = useWishlist()
+
   if (!product) {
     return (
       <main className="no-product-page">
         <h1>Product Not Found</h1>
+
         <p>
           The product you are looking for does not exist.
         </p>
@@ -30,7 +39,8 @@ function ProductDetails() {
     )
   }
 
-  const productImages = product.images || [product.image]
+  const productImages =
+    product.images || [product.image]
 
   const increaseQuantity = () => {
     if (quantity < product.stock) {
@@ -54,6 +64,14 @@ function ProductDetails() {
     navigate("/cart")
   }
 
+  const handleWishlist = () => {
+    if (isInWishlist(product.id)) {
+      removeFromWishlist(product.id)
+    } else {
+      addToWishlist(product)
+    }
+  }
+
   return (
     <main className="product-details-page">
 
@@ -64,16 +82,19 @@ function ProductDetails() {
 
           {/* Main Image */}
           <div className="product-main-image">
+
             <img
               src={selectedImage}
               alt={product.name}
             />
+
           </div>
 
           {/* Thumbnails */}
           <div className="product-thumbnails">
 
             {productImages.map((image, index) => (
+
               <button
                 key={index}
                 className={
@@ -85,11 +106,14 @@ function ProductDetails() {
                   setSelectedImage(image)
                 }
               >
+
                 <img
                   src={image}
                   alt={`${product.name} ${index + 1}`}
                 />
+
               </button>
+
             ))}
 
           </div>
@@ -107,6 +131,7 @@ function ProductDetails() {
 
           {/* Rating */}
           <div className="product-details-rating">
+
             <span>
               ⭐ {product.rating}
             </span>
@@ -114,6 +139,7 @@ function ProductDetails() {
             <span>
               ({product.reviews} reviews)
             </span>
+
           </div>
 
           {/* Price */}
@@ -155,6 +181,7 @@ function ProductDetails() {
 
           {/* Quantity */}
           {product.stock > 0 && (
+
             <div className="quantity-section">
 
               <h3>Quantity</h3>
@@ -182,9 +209,10 @@ function ProductDetails() {
               </div>
 
             </div>
+
           )}
 
-          {/* Buttons */}
+          {/* Action Buttons */}
           <div className="product-action-buttons">
 
             <button
@@ -203,6 +231,19 @@ function ProductDetails() {
               disabled={product.stock === 0}
             >
               Buy Now
+            </button>
+
+            <button
+              className={
+                isInWishlist(product.id)
+                  ? "details-wishlist-button active"
+                  : "details-wishlist-button"
+              }
+              onClick={handleWishlist}
+            >
+              {isInWishlist(product.id)
+                ? "♥ Remove from Wishlist"
+                : "♡ Add to Wishlist"}
             </button>
 
           </div>
